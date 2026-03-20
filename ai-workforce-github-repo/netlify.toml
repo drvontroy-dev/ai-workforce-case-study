@@ -1,0 +1,47 @@
+# ============================================================
+# NETLIFY.TOML — Site configuration for Netlify
+# ============================================================
+# This file tells Netlify how to build and serve your site.
+# It lives at the root of your GitHub repo.
+#
+# PENCIL.DEV TIP: Netlify reads this file automatically on 
+# every deploy. No setup needed — just push it to GitHub.
+
+# Build settings
+# Since this is plain HTML (no React/Node build step), we 
+# just tell Netlify to serve the files as-is.
+[build]
+  publish = "."          # Serve files from root directory
+  # No build command needed — these are static HTML files
+
+# Form handling — Netlify auto-detects forms in HTML,
+# but this confirms the feature is enabled
+[build.processing]
+  skip_processing = false
+
+# Headers — Security and caching best practices
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Cache fonts and images longer (they don't change often)
+[[headers]]
+  for = "*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Redirect: make sure /case-study always serves the gated page
+# (handles both /case-study and /case-study/ cleanly)
+[[redirects]]
+  from = "/case-study"
+  to = "/case-study/index.html"
+  status = 200
+
+# Custom 404 page (optional — falls back to Netlify default)
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 404
