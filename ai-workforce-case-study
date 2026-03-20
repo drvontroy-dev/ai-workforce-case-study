@@ -1,5 +1,0 @@
-index.html              ← Landing page
-case-study/             ← Folder (drag the whole folder)
-  └── index.html        ← Gated report
-netlify.toml            ← Tells Netlify how to serve the site
-README.md               ← Repo description
